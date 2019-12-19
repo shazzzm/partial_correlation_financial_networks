@@ -126,18 +126,6 @@ def get_sector_full_nice_name(sector):
     else:
         raise Exception("%s is not a valid sector" % sector)
 
-def calculate_spectral_entropy(M):
-    #M = nx.from_numpy_array(G)
-    eigs, eigv = np.linalg.eig(M)
-    eigs = np.real(eigs)
-    eigs = np.sort(eigs)
-    w = np.diff(eigs)
-    # Remove floating point errors
-    #w[np.abs(w) < 10e-5] = 0
-    omega = np.power(w, 2) / np.sum(np.power(w, 2))
-
-    return np.sum(np.multiply(omega, np.log(omega)))
-
 
 #df = pd.DataFrame.from_csv("s_and_p_500_sector_tagged.csv")
 df = pd.read_csv("s_and_p_500_daily_close_filtered.csv", index_col=0)
@@ -195,13 +183,6 @@ node_centrality_lst_degree = []
 sector_centrality_lst_eigv = []
 node_centrality_lst_eigv = []
 
-entropy = np.zeros(number_graphs)
-
-sector_connections_lst = []
-prec_fro_diff_lst = []
-prec_threshold_lst = []
-prec_edge_diff = np.zeros(number_graphs)
-prev_weighted_prec = np.zeros((p, p))
 sharpe_ratios = np.zeros(number_graphs*number_companies)
 centralities_degree = np.zeros(number_companies*number_graphs)
 centralities_eigv = np.zeros(number_companies*number_graphs)
@@ -215,23 +196,15 @@ max_eigs = np.zeros(no_runs)
 max_eigv = np.zeros((no_runs, p))
 max_eigv_diff = np.zeros(no_runs-1)
 
-naive_portfolio_sharpe = np.zeros(no_runs-1)
-naive_portfolio_risk = np.zeros(no_runs-1)
-naive_portfolio_return = np.zeros(no_runs-1)
-
 for i,G in enumerate(Graphs):
     prec = np.array(nx.to_numpy_matrix(G))
     eigs, eigv = scipy.linalg.eigh(prec, eigvals=(p-1, p-1))
-    entropy[i] = calculate_spectral_entropy(prec)
     max_eigs[i] = eigs
     eigv = eigv/eigv.sum()
     max_eigv[i, :] = eigv.flatten()
     if i > 0:
         max_eigv_diff[i-1] = np.linalg.norm(max_eigv[i-1,:] - eigv)
-    fro_diff = ((prec.flatten() - prev_weighted_prec.flatten())**2).mean()
 
-    prec_fro_diff_lst.append(fro_diff)
-    prev_weighted_prec = prec.copy()
     node_centrality_degree, sector_centrality_degree = get_centrality(G)
     node_centrality_eigv, sector_centrality_eigv = get_centrality(G, degree=False)
 
@@ -286,13 +259,6 @@ ts = pd.Series(max_eigv_diff, index=dt_2)
 plt.figure()
 ts.plot()
 plt.title("Largest Eigenvector Diff")
-ax = plt.gca()
-ax.set_ylim(0, 1)
-
-ts = pd.Series(entropy, index=dt)
-plt.figure()
-ts.plot()
-plt.title("Entropy")
 ax = plt.gca()
 ax.set_ylim(0, 1)
 

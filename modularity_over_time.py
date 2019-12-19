@@ -75,9 +75,6 @@ def plot_bar_chart(vals, label=None, title=None, xlabel=None, ylabel=None):
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
 
-def min_max_normalization(df):
-    return (df - df.min())/(df.max() - df.min())
-
 def compare_cluster_consistency(current_assignments, previous_assignments):
     rand_index = []
     for cur_assignment in curr_assignments:
