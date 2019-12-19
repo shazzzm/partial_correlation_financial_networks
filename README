@@ -1,0 +1,38 @@
+Code and data for my paper "Partial Correlation Financial Networks".
+
+I use a virtual env to handle this, there is a requirements.txt that contains the dependencies.
+To create the virtualenv
+1. virtualenv -p python3 env
+2. source env/bin/activate
+3. pip install -r requirements.txt 
+
+To obtain the analysis in the paper
+1. Run infer_networks.py to create the correlation and partial correlation networks (will also show Figure 3)
+2. Copy all the correlation and partial correlation graphml files into seperate folders (i.e. only correlation networks in one folder)
+3. In analyze_networks.py file change the networks_folder variable to the folder containing the networks you wish to analyze
+4. Run analyze_networks.py to get the figures specific to that network. (Figures 3, 5, 8, 9 and Table 1 can be achieved by this)
+
+For community detection:
+1. edit modularity_over_time.py - set the networks_folder variable to the appropriate folder
+2. Run it - it will take a long time
+3. Change the networks_folder to the other network type
+4. Run it again
+5. Run community_detection_analysis.py to get Figures 11, 12 and 13.
+
+To obtain Figures 1 and 2:
+1. Download gephi - https://gephi.org/
+2. Edit the networks_folder variable in display_network to point to the location of the graphml files for the network type you are interesed in
+3. Edit the nx.write_graphml call in the threshold_graph method to an appropriate filename (e.g. for the partial correlation networks you could call it partial_correlation.graphml)
+4. Run the script
+5. Open gephi and import the graphml file in
+6. In the appearance tab set the partition to sector and choose your palette
+7. Run the Yifan Hu layout
+8. You can export this if you wish
+
+To obtain Figures 4 and 6:
+1. Open corr_par_corr_comparison.py
+2. There are 2 variables to edit here, networks_folder_correlation which contains the location of the correlation networks and networks_folder_partial_correlation
+which contains the location of the partial correlation networks
+3. Run this script 
+
+Any issues please feel free to contact me.
