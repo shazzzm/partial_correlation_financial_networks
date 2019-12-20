@@ -7,14 +7,11 @@ import networkx as nx
 from scipy.stats import norm, spearmanr
 import os
 import pandas as pd
-import matplotlib.dates as mdates
 import seaborn as sns
 from pathlib import Path
 import operator
 import matplotlib
-import statsmodels.tsa.stattools
 from sklearn.preprocessing import StandardScaler
-import modularity_maximizer
 from statsmodels.stats import multitest
 
 
