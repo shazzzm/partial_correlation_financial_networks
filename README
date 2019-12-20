@@ -13,11 +13,12 @@ To obtain the analysis in the paper
 4. Run analyze_networks.py to get the figures specific to that network. (Figures 3, 5, 8, 9 and Table 1 can be achieved by this)
 
 For community detection:
-1. edit modularity_over_time.py - set the networks_folder variable to the appropriate folder
-2. Run it - it will take a long time
-3. Change the networks_folder to the other network type
-4. Run it again
-5. Run community_detection_analysis.py to get Figures 11, 12 and 13.
+1. If you're on Linux, you should be able to do source compile_cython.sh and it'll compile the community detection algorithm - I'm unsure as to how to handle this on windows
+2. edit modularity_over_time.py - set the networks_folder variable to the appropriate folder
+3. Run it - it will take a long time
+4. Change the networks_folder to the other network type
+5. Run it again
+6. Run community_detection_analysis.py to get Figures 11, 12 and 13.
 
 To obtain Figures 1 and 2:
 1. Download gephi - https://gephi.org/
