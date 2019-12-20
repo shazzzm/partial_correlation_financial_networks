@@ -3,7 +3,6 @@ import numpy as np
 import math
 import networkx as nx
 from sklearn.preprocessing import StandardScaler
-import space
 import os
 from sklearn.covariance import LedoitWolf
 import matplotlib.pyplot as plt
