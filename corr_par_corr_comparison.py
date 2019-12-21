@@ -146,5 +146,5 @@ eigv_diff.plot()
 plt.title("Largest Eigenvector Diff")
 ax = plt.gca()
 ax.set_ylim(0, 1)
-
+plt.savefig("leading_eigenvector_diff.png")
 plt.show()
