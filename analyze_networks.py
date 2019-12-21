@@ -157,7 +157,7 @@ for x in range(no_runs):
 
 
 # Change this if you wish to analyze either correlation or partial correlation networks
-networks_folder = "networks_lw_corr/"
+networks_folder = "networks_lw_normalized/"
 onlyfiles = [os.path.abspath(os.path.join(networks_folder, f)) for f in os.listdir(networks_folder) if os.path.isfile(os.path.join(networks_folder, f))]
 #onlyfiles = onlyfiles[0:1]
 #onlyfiles = list(map(lambda x: os.path.splitext(x)[0], onlyfiles))
@@ -280,8 +280,9 @@ for sector in sector_centrality_over_time:
     sector_nice_name = get_sector_full_nice_name(sector)
     sector_centrality[sector_nice_name] = ts
 
-sector_centrality.plot(color = ['#1f77b4', '#aec7e8', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#ff9896'])
+sector_centrality.plot(color = ['#1f77b4', '#aec7e8', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#ff9896'], legend=False)
 plt.title("Degree Centrality")
+plt.ylim(0, 0.14)
 
 sector_centrality_over_time = collections.defaultdict(list)
 ss = []
@@ -297,9 +298,8 @@ for sector in sector_centrality_over_time:
     ts = pd.Series(sector_centrality_over_time[sector], index=dt)
     sector_nice_name = get_sector_full_nice_name(sector)
     sector_centrality[sector_nice_name] = ts
-
-sector_centrality.plot(color = ['#1f77b4', '#aec7e8', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#ff9896'])
+sector_centrality.plot(color = ['#1f77b4', '#aec7e8', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#ff9896'], legend=False)
 plt.title("Eigenvector Centrality")
-
+plt.ylim(0, 0.20)
 save_open_figures("financial_networks_graphml_")
 plt.close('all')
