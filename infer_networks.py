@@ -122,12 +122,15 @@ for x in range(1, no_runs):
 
 plt.figure()
 plt.hist(corr_values)
-plt.title("Correlation Values")
-
+plt.title("Edge Weight Distribution")
+plt.savefig("correlation_values.png")
 plt.figure()
 plt.hist(par_corr_values)
-plt.title("Partial Correlation Values")
+plt.title("Edge Weight Distribution")
+plt.savefig("partial_correlation_values.png")
 
 plt.figure()
 plt.plot(shrinkages, label="Shrinkages")   
+plt.savefig("shrinkages.png")
+
 plt.show()
