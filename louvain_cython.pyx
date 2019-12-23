@@ -66,7 +66,10 @@ def modularity_signed(np.ndarray[DTYPE_t, ndim=2] M, np.ndarray[DTYPE_int, ndim=
             for j in range(p):
                 if assignments[i] == assignments[j]:
                     Q_pos += M_pos[i, j] - (K_pos[i] * K_pos[j]/tot_pos)
-    Q_pos = Q_pos/tot_pos
+    if tot_pos == 0:
+        Q_pos = 0
+    else:
+        Q_pos = Q_pos/tot_pos
 
     Q_neg = 0
     if tot_neg > 0:
@@ -74,7 +77,11 @@ def modularity_signed(np.ndarray[DTYPE_t, ndim=2] M, np.ndarray[DTYPE_int, ndim=
             for j in range(p):
                 if assignments[i] == assignments[j]:
                     Q_neg += M_neg[i, j] - (K_neg[i] * K_neg[j]/tot_neg)
-    Q_neg = Q_neg/tot_neg
+
+    if tot_neg == 0:
+        Q_neg = 0
+    else:
+        Q_neg = Q_neg/tot_pos
 
     Q = tot_pos / (tot_pos + tot_neg) * Q_pos - tot_neg / (tot_pos + tot_neg) * Q_neg
 
