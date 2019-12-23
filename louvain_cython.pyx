@@ -75,7 +75,7 @@ def modularity_signed(np.ndarray[DTYPE_t, ndim=2] M, np.ndarray[DTYPE_int, ndim=
                     Q_neg += M_neg[i, j] - (K_neg[i] * K_neg[j]/tot_neg)
 
 
-    Q = tot_pos / (tot_pos + tot_neg) * Q_pos + tot_neg / (tot_pos + tot_neg) * Q_neg
+    Q = tot_pos / (tot_pos + tot_neg) * Q_pos - tot_neg / (tot_pos + tot_neg) * Q_neg
 
     return Q
 
@@ -130,13 +130,11 @@ def modularity_correlation(np.ndarray[DTYPE_t, ndim=2] M, np.ndarray[DTYPE_int, 
     for i in range(p):
         for j in range(p):
             if i == j:
-                val = 1
-            else:
-                val = 0
+                continue
             if assignments[i] != assignments[j]:
                 continue
 
-            Q += M[i,j] - val 
+            Q += M[i,j] 
 
     return Q/(C_norm)
 
