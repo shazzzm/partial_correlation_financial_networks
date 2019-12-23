@@ -119,7 +119,7 @@ dates_2 = []
 for x in range(no_runs):
     dates_2.append(df.index[(x+1)*slide_size+window_size][0:10])
 
-networks_folder = "networks_lw/"
+networks_folder = "networks_lw_corr/"
 onlyfiles = [os.path.abspath(os.path.join(networks_folder, f)) for f in os.listdir(networks_folder) if os.path.isfile(os.path.join(networks_folder, f))]
 #onlyfiles = list(map(lambda x: os.path.splitext(x)[0], onlyfiles))
 Graphs = []

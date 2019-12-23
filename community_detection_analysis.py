@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import distributions
 import pandas as pd
 import math
+import louvain_cython as lcn
 
 df = pd.read_csv("s_and_p_500_daily_close_filtered.csv", index_col=0)
 company_sectors = df.iloc[0, :].values
@@ -30,22 +31,26 @@ dates = []
 for x in range(no_runs):
     dates.append(df.index[(x+1)*slide_size+window_size][0:10])
 dt = pd.to_datetime(dates)
+dt_2 = dt[1:]
+networks_folder_correlation = "networks_lw_corr"
+networks_folder_partial_correlation = "networks_lw"
+
 
 # Read in the correlation and partial correlation results
-cluster_consistency_mean_corr = np.load("cluster_consistency_mean_corr.npy")
-cluster_consistency_mean_par_corr = np.load("cluster_consistency_mean_par_corr.npy")
-cluster_consistency_stdev_corr = np.load("cluster_consistency_stdev_corr.npy")
-cluster_consistency_stdev_par_corr = np.load("cluster_consistency_stdev_par_corr.npy")
+cluster_consistency_mean_corr = np.load("cluster_consistency_mean_%s.npy" % networks_folder_correlation)
+cluster_consistency_mean_par_corr = np.load("cluster_consistency_mean_%s.npy" % networks_folder_partial_correlation)
+cluster_consistency_stdev_corr = np.load("cluster_consistency_stdev_%s.npy" % networks_folder_correlation)
+cluster_consistency_stdev_par_corr = np.load("cluster_consistency_stdev_%s.npy" % networks_folder_partial_correlation)
 
-num_clusters_mean_corr = np.load("num_clusters_mean_corr.npy")
-num_clusters_mean_par_corr = np.load("num_clusters_mean_par_corr.npy")
-num_clusters_stdev_corr = np.load("num_clusters_stdev_corr.npy")
-num_clusters_stdev_par_corr = np.load("num_clusters_stdev_par_corr.npy")
+num_clusters_mean_corr = np.load("num_clusters_mean_%s.npy" % networks_folder_correlation)
+num_clusters_mean_par_corr = np.load("num_clusters_mean_%s.npy" % networks_folder_partial_correlation)
+num_clusters_stdev_corr = np.load("num_clusters_stdev_%s.npy" % networks_folder_correlation)
+num_clusters_stdev_par_corr = np.load("num_clusters_stdev_%s.npy" % networks_folder_partial_correlation)
 
-rand_scores_mean_corr = np.load("rand_scores_mean_corr.npy")
-rand_scores_mean_par_corr = np.load("rand_scores_mean_par_corr.npy")
-rand_scores_stdev_corr = np.load("rand_scores_stdev_corr.npy")
-rand_scores_stdev_par_corr = np.load("rand_scores_stdev_par_corr.npy")
+rand_scores_mean_corr = np.load("rand_scores_mean_%s.npy" % networks_folder_correlation)
+rand_scores_mean_par_corr = np.load("rand_scores_mean_%s.npy" % networks_folder_partial_correlation)
+rand_scores_stdev_corr = np.load("rand_scores_stdev_%s.npy" % networks_folder_correlation)
+rand_scores_stdev_par_corr = np.load("rand_scores_stdev_%s.npy" % networks_folder_partial_correlation)
 
 rand_scores_mean = pd.DataFrame()
 rand_scores_stdev = pd.DataFrame()
