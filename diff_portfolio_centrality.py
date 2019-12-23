@@ -169,32 +169,13 @@ for x in range(no_runs):
     dates.append(df.index[(x+1)*slide_size+window_size][0:10])
 
 dt = pd.to_datetime(dates)
-"""
-networks_folder_correlation = "networks_lw_corr/"
-onlyfiles = [os.path.abspath(os.path.join(networks_folder_correlation, f)) for f in os.listdir(networks_folder_correlation) if os.path.isfile(os.path.join(networks_folder_correlation, f))]
-#onlyfiles = onlyfiles[0:1]
-#onlyfiles = list(map(lambda x: os.path.splitext(x)[0], onlyfiles))
-Graphs_correlation = []
 
-# Sort the files into order
-ind = [int(Path(x).stem[23:]) for x in onlyfiles]
-ind = np.argsort(np.array(ind))
+networks_folder = "networks_lw/"
+onlyfiles = [os.path.abspath(os.path.join(networks_folder, f)) for f in os.listdir(networks_folder) if os.path.isfile(os.path.join(networks_folder, f))]
 
-for i in ind:
-    f = onlyfiles[i]
-    G = nx.read_graphml(f)
-    Graphs_correlation.append(G)
-
-
-"""
-networks_folder_partial_correlation = "networks_lw/"
-onlyfiles = [os.path.abspath(os.path.join(networks_folder_partial_correlation, f)) for f in os.listdir(networks_folder_partial_correlation) if os.path.isfile(os.path.join(networks_folder_partial_correlation, f))]
-#onlyfiles = onlyfiles[0:1]
-#onlyfiles = list(map(lambda x: os.path.splitext(x)[0], onlyfiles))
 Graphs_partial_correlation = []
 
 # Sort the files into order
-#ind = [int(Path(x).stem[18:]) for x in onlyfiles]
 ind = [int(Path(x).stem[23:]) for x in onlyfiles]
 ind = np.argsort(np.array(ind))
 
@@ -227,8 +208,6 @@ for i in range(number_graphs):
     optimal_portfolio_diff_par_corr[i] = np.linalg.norm(degree_centrality - optimal_portfolio)
 
 optimal_portfolio_degree_centrality_diff = pd.DataFrame()
-#ts = pd.Series(optimal_portfolio_diff_corr, index=dt)
-#optimal_portfolio_degree_centrality_diff['Correlation'] = ts
 ts = pd.Series(optimal_portfolio_diff_par_corr, index=dt)
 optimal_portfolio_degree_centrality_diff['Partial Correlation'] = ts
 optimal_portfolio_degree_centrality_diff.plot(legend=False)
@@ -242,5 +221,3 @@ plt.title("Precision Matrix Diagonal Sum")
 plt.savefig("precision_matrix_diagonal_sum.png")
 
 plt.show()
-#save_open_figures("financial_networks_portfolio_")
-#plt.close('all')

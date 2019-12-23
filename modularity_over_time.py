@@ -177,7 +177,7 @@ for i,G in enumerate(Graphs):
     curr_assignments = []
     num_clusters = np.zeros(num_runs_community_detection)
     for run in range(num_runs_community_detection):
-        communities, assignments_dct = lcn.run_louvain_nx(G, nodes, signed=True)
+        communities, assignments_dct = lcn.run_louvain_nx(G, nodes, correlation=True)
         assignments = np.zeros(len(G.nodes))
         nodes = list(G.nodes)
         for j,com in enumerate(communities):
