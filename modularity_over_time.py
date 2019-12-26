@@ -114,12 +114,7 @@ dates = []
 for x in range(no_runs-1):
     dates.append(df.index[(x+2)*slide_size+window_size][0:10])
 
-dates_2 = []
-
-for x in range(no_runs):
-    dates_2.append(df.index[(x+1)*slide_size+window_size][0:10])
-
-networks_folder = "networks_lw/"
+networks_folder = "networks_lw_corr/"
 onlyfiles = [os.path.abspath(os.path.join(networks_folder, f)) for f in os.listdir(networks_folder) if os.path.isfile(os.path.join(networks_folder, f))]
 #onlyfiles = list(map(lambda x: os.path.splitext(x)[0], onlyfiles))
 Graphs = []
@@ -211,25 +206,25 @@ np.save(networks_folder[:-1] + "_number_clusters.npy", number_clusters_all)
 np.save(networks_folder[:-1] + "_cluster_consistency_all.npy", cluster_consistency_all)
 np.save(networks_folder[:-1] + "_rand_scores_all.npy", rand_scores_all)
 
-dt = pd.to_datetime(dates_2)
+dt = pd.to_datetime(dates)
 ts = pd.Series(rand_scores_mean, index=dt)
 fig = plt.figure()
 ax = ts.plot(yerr=rand_scores_stdev)
 plt.title("Rand Score")
 ax.set_ylim(0, 1)
 
-np.save("rand_scores_mean", rand_scores_mean)
-np.save("rand_scores_stdev", rand_scores_stdev)
+np.save("rand_scores_mean_" + networks_folder[:-1], rand_scores_mean)
+np.save("rand_scores_stdev_" +  networks_folder[:-1], rand_scores_stdev)
 
-dt_2 = pd.to_datetime(dates)
+dt_2 = dt[1:]
 ts = pd.Series(cluster_consistency_mean, index=dt_2)
 fig = plt.figure()
 ax = ts.plot(yerr=cluster_consistency_stdev)
 plt.title("Clustering Consistency")
 ax.set_ylim(0, 1)
 
-np.save("cluster_consistency_mean", cluster_consistency_mean)
-np.save("cluster_consistency_stdev", cluster_consistency_stdev)
+np.save("cluster_consistency_mean_" + networks_folder[:-1], cluster_consistency_mean)
+np.save("cluster_consistency_stdev_" + networks_folder[:-1], cluster_consistency_stdev)
 
 ts = pd.Series(number_of_clusters_mean, index=dt)
 fig = plt.figure()
@@ -237,8 +232,8 @@ ax = ts.plot(yerr=number_of_clusters_stdev)
 plt.title("Number of Clusters")
 ax.set_ylim(0, 25)
 
-np.save("num_clusters_mean", number_of_clusters_mean)
-np.save("num_clusters_stdev", number_of_clusters_stdev)
+np.save("num_clusters_mean_" + networks_folder[:-1], number_of_clusters_mean)
+np.save("num_clusters_stdev_"  + networks_folder[:-1], number_of_clusters_stdev)
 
 save_open_figures("financial_networks_louvain_")
 plt.close('all')
