@@ -134,15 +134,17 @@ def modularity_correlation(np.ndarray[DTYPE_t, ndim=2] M, np.ndarray[DTYPE_int, 
     """
     cdef int p = M.shape[0]
     cdef float Q = 0
-    cdef float C_norm = M.sum()
+    cdef float C_norm = M.sum() - p
     for i in range(p):
         for j in range(p):
             if i == j:
-                continue
+                val = 1
+            else:
+                val = 0
             if assignments[i] != assignments[j]:
                 continue
 
-            Q += M[i,j] 
+            Q += M[i,j] - val
 
     return Q/(C_norm)
 
