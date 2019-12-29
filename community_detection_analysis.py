@@ -66,6 +66,7 @@ rand_scores_stdev['Partial Correlation'] = ts
 
 ax = rand_scores_mean.plot(yerr=rand_scores_stdev)
 plt.title("Rand Score")
+plt.savefig("rand_score.png")
 #ax.set_ylim(0, 1)
 
 number_clusters_mean_df = pd.DataFrame()
@@ -82,6 +83,7 @@ number_clusters_stdev_df['Partial Correlation'] = ts
 
 ax = number_clusters_mean_df.plot(yerr=number_clusters_stdev_df)
 plt.title("Mean Number of Clusters")
+plt.savefig("num_clusters.png")
 
 cluster_consistency_mean_df = pd.DataFrame()
 cluster_consistency_stdev_df = pd.DataFrame()
@@ -97,5 +99,7 @@ cluster_consistency_stdev_df['Partial Correlation'] = ts
 
 ax = cluster_consistency_mean_df.plot(yerr=cluster_consistency_stdev_df)
 plt.title("Clustering Consistency")
+plt.savefig("clustering_consistency.png")
+
 
 plt.show()
