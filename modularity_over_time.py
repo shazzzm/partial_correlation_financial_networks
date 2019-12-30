@@ -111,8 +111,8 @@ p = X.shape[1]
 no_runs = math.floor((no_samples - window_size)/ (slide_size))
 dates = []
 
-for x in range(no_runs-1):
-    dates.append(df.index[(x+2)*slide_size+window_size][0:10])
+for x in range(no_runs):
+    dates.append(df.index[(x+1)*slide_size+window_size][0:10])
 
 networks_folder = "networks_lw_corr/"
 onlyfiles = [os.path.abspath(os.path.join(networks_folder, f)) for f in os.listdir(networks_folder) if os.path.isfile(os.path.join(networks_folder, f))]
@@ -172,7 +172,7 @@ for i,G in enumerate(Graphs):
     curr_assignments = []
     num_clusters = np.zeros(num_runs_community_detection)
     for run in range(num_runs_community_detection):
-        communities, assignments_dct = lcn.run_louvain_nx(G, nodes, correlation=True)
+        communities, assignments_dct = lcn.run_louvain_nx(G, nodes, signed=True)
         assignments = np.zeros(len(G.nodes))
         nodes = list(G.nodes)
         for j,com in enumerate(communities):
